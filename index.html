@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطة إعلانات تطبيق رصيد</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Calm Harmony (Stone, White, Slate, and Blue Accent) -->
+    <!-- Application Structure Plan: A tabbed interface SPA. This structure is chosen over a linear report as it allows non-linear exploration of the media plan. Users (client/marketer) can instantly navigate to the section they care about (e.g., Budget, KPIs, Creatives) without scrolling. This dashboard approach makes complex plan data highly consumable and intuitive. JS manages the active tab state and content visibility, and initializes charts only when their tab is viewed. -->
+    <!-- Visualization & Content Choices: 
+        - Overview: HTML Stat Cards (Goal: Inform) - For at-a-glance budget, duration, and goals.
+        - Budget Allocation: Chart.js Doughnut Chart (Goal: Compare Proportions) - Visually represents the 40/30/30 split. (Library: Chart.js).
+        - Channel Strategy: HTML Cards (Goal: Inform) - Details the 'why' for each channel choice.
+        - KPI Targets: Chart.js Horizontal Bar Charts (Goal: Show Range) - Effectively visualizes the min/max target ranges for CPL and CTR. (Library: Chart.js).
+        - Creative Assets: HTML Lists (Goal: Organize) - Simple, clear categorization of video/static assets.
+        - Execution Plan: HTML Flexbox Timeline (Goal: Show Process) - Visually represents the two-phase plan (Test, Optimize) clearly.
+        - All justifications prioritize clarity and interactivity.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .chart-container-bar {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 120px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                max-width: 450px;
+                height: 400px;
+            }
+        }
+        @media (max-width: 767px) {
+             .chart-container {
+                max-width: 400px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-900">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="mb-8 pb-4 border-b border-stone-300">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800 text-right">لوحة تحكم خطة الإعلان الرقمي</h1>
+            <p class="text-xl text-blue-600 font-medium text-right mt-1">تطبيق رصيد المحاسبي (حملة تجريبية)</p>
+        </header>
+
+        <nav class="mb-8" role="tablist" aria-label="أقسام الخطة">
+            <div class="flex flex-wrap gap-2 md:gap-4">
+                <button role="tab" aria-selected="true" data-target="overview" class="tab-button flex-auto md:flex-initial text-sm md:text-base active-tab font-medium py-3 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 bg-blue-600 text-white">
+                    نظرة عامة
+                </button>
+                <button role="tab" aria-selected="false" data-target="channels" class="tab-button flex-auto md:flex-initial text-sm md:text-base inactive-tab font-medium py-3 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 bg-white text-blue-600 hover:bg-blue-50">
+                    القنوات والميزانية
+                </button>
+                <button role="tab" aria-selected="false" data-target="kpis" class="tab-button flex-auto md:flex-initial text-sm md:text-base inactive-tab font-medium py-3 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 bg-white text-blue-600 hover:bg-blue-50">
+                    مؤشرات الأداء (KPIs)
+                </button>
+                <button role="tab" aria-selected="false" data-target="creatives" class="tab-button flex-auto md:flex-initial text-sm md:text-base inactive-tab font-medium py-3 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 bg-white text-blue-600 hover:bg-blue-50">
+                    المحتوى الإبداعي
+                </button>
+                <button role="tab" aria-selected="false" data-target="execution" class="tab-button flex-auto md:flex-initial text-sm md:text-base inactive-tab font-medium py-3 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 bg-white text-blue-600 hover:bg-blue-50">
+                    خطة التنفيذ
+                </button>
+            </div>
+        </nav>
+
+        <main id="tab-content" class="text-right">
+            
+            <div role="tabpanel" id="overview" class="tab-panel space-y-8">
+                <section>
+                    <p class="mb-6 text-lg text-slate-700">
+                        هذا القسم يقدم ملخصاً سريعاً لأهداف الحملة، الميزانية الإجمالية، والجمهور الأساسي المستهدف. هذه هي الركائز التي بنيت عليها الخطة.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">الميزانية الإجمالية</h3>
+                            <p class="text-3xl font-bold text-blue-600 mt-2">15,000 ريال</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">مدة الحملة</h3>
+                            <p class="text-3xl font-bold text-blue-600 mt-2">30 يوم</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                            <h3 class="text-sm font-medium text-slate-500 uppercase">الأهداف الرئيسية</h3>
+                            <p class="text-xl font-bold text-slate-800 mt-2">الوعي بالعلامة التجارية<br>+ توليد عملاء محتملين</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-4">الجمهور المستهدف</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-600">الشريحة الرئيسية (B2B)</h3>
+                            <ul class="list-disc list-inside space-y-2 mt-2 text-slate-700">
+                                <li>أصحاب الشركات</li>
+                                <li>مديري العمليات</li>
+                                <li>مسؤولي الحسابات</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-blue-600">الاهتمامات والسلوكيات</h3>
+                            <ul class="list-disc list-inside space-y-2 mt-2 text-slate-700">
+                                <li>إدارة الحسابات وبرامج الـ ERP</li>
+                                <li>الامتثال لمتطلبات الفاتورة الإلكترونية</li>
+                                <li>البحث عن حلول برمجية لإدارة الأعمال</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <p class="text-sm text-blue-800"><strong class="font-semibold">التركيبة السكانية:</strong> ذكور وإناث، الفئة العمرية 25-65 عاماً، داخل المملكة العربية السعودية، مع التركيز على متخذي القرار التجاري والمحاسبين.</p>
+                    </div>
+                </section>
+            </div>
+
+            <div role="tabpanel" id="channels" class="tab-panel hidden space-y-8">
+                <section>
+                    <p class="mb-6 text-lg text-slate-700">
+                        هنا يتم عرض كيفية توزيع الميزانية الإجمالية البالغة 15,000 ريال على القنوات الإعلانية الرئيسية. الرسم البياني يوضح الحصص، والبطاقات تشرح السبب الاستراتيجي لاختيار كل قناة.
+                    </p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                            <h2 class="text-2xl font-bold text-slate-800 mb-4 text-center">توزيع الميزانية</h2>
+                            <div class="chart-container">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                                <h3 class="text-xl font-bold text-blue-600">يوتيوب (40%)</h3>
+                                <p class="font-semibold text-slate-700">6,000 ريال (200 ريال/يوم)</p>
+                                <p class="mt-2 text-slate-600">الاختيار الأنسب للوصول الواسع (Awareness) وشرح مميزات التطبيق عبر إعلانات الفيديو (45 ثانية) للجمهور المهتم ببرامج الأعمال.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                                <h3 class="text-xl font-bold text-emerald-600">تيك توك (30%)</h3>
+                                <p class="font-semibold text-slate-700">4,500 ريال (150 ريال/يوم)</p>
+                                <p class="mt-2 text-slate-600">يستخدم لتوليد العملاء المحتملين (Leads) بشكل سريع عبر فيديوهات قصيرة (15-30 ثانية) تستهدف الجمهور المهني الشاب (25-45).</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
+                                <h3 class="text-xl font-bold text-yellow-500">سناب شات (30%)</h3>
+                                <p class="font-semibold text-slate-700">4,500 ريال (150 ريال/يوم)</p>
+                                <p class="mt-2 text-slate-600">قناة فعالة للوصول المحلي المكثف في السعودية. تستخدم لزيادة التفاعل وتوجيه المستخدمين لصفحة التسجيل بتكلفة فعالة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div role="tabpanel" id="kpis" class="tab-panel hidden space-y-8">
+                <section>
+                    <p class="mb-6 text-lg text-slate-700">
+                        بما أن هذه حملة تجريبية، نركز على مؤشرات أداء أساسية (Baseline KPIs) لقياس الكفاءة الأولية وتحديد معايير للتحسين. هذا القسم يوضح الأهداف الرقمية التي نسعى لتحقيقها.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200 text-center">
+                            <h3 class="text-lg font-semibold text-slate-700">مرات الظهور (Impressions)</h3>
+                            <p class="text-3xl font-bold text-blue-600 mt-2">2.5 - 3.5 مليون</p>
+                            <p class="text-sm text-slate-500 mt-1">لقياس إجمالي حجم التعرض للعلامة التجارية.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200 text-center">
+                            <h3 class="text-lg font-semibold text-slate-700">التكلفة لكل ألف ظهور (CPM)</h3>
+                            <p class="text-3xl font-bold text-blue-600 mt-2">4 - 6 ريال</p>
+                            <p class="text-sm text-slate-500 mt-1">لقياس كفاءة سعر الوصول عبر القنوات.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200 text-center">
+                            <h3 class="text-lg font-semibold text-slate-700">معدل مشاهدة الفيديو (VTR)</h3>
+                            <p class="text-3xl font-bold text-blue-600 mt-2">+20%</p>
+                            <p class="text-sm text-slate-500 mt-1">للفيديوهات (15-30 ثانية) لقياس جودة التفاعل.</p>
+                        </div>
+                    </div>
+                </section>
+                <section class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6">الأهداف الرئيسية للتحويل (Leads)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-700 mb-3">الهدف: تكلفة العميل المحتمل (CPL)</h3>
+                            <p class="text-sm text-slate-500 mb-3">المؤشر الأهم لقياس ROI. نسعى لتكلفة تتراوح بين 10 و 15 ريال.</p>
+                            <div class="chart-container-bar">
+                                <canvas id="cplChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-700 mb-3">الهدف: معدل النقر (CTR)</h3>
+                            <p class="text-sm text-slate-500 mb-3">لقياس فعالية المحتوى الإبداعي. نسعى لمعدل بين 0.8% و 1.5%.</p>
+                            <div class="chart-container-bar">
+                                <canvas id="ctrChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div role="tabpanel" id="creatives" class="tab-panel hidden">
+                <section>
+                     <p class="mb-6 text-lg text-slate-700">
+                        المحتوى هو المحرك الأساسي للحملة. هذا القسم يوضح الأصول الإبداعية (Assets) التي سيتم إنتاجها واستخدامها، مقسمة بين فيديوهات وتصميمات ثابتة، مع توضيح الرسالة الرئيسية لكل منها.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
+                            <h2 class="text-2xl font-bold text-slate-800 mb-4">
+                                <span class="text-3xl mr-2">🎥</span> الفيديوهات (3 أنواع)
+                            </h2>
+                            <ul class="list-none space-y-4">
+                                <li class="flex items-start">
+                                    <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">45 ثانية</span>
+                                    <span class="text-slate-700">
+                                        <strong>الإعلان الرئيسي (لـ YouTube):</strong> شرح تفصيلي لمزايا التطبيق وقيمته لحل المشاكل المحاسبية.
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">30 ثانية</span>
+                                    <span class="text-slate-700">
+                                        <strong>إعلان مختصر (لـ TikTok/Snap):</strong> تركيز على ميزة واحدة قوية (مثل الفوترة) مع دعوة مباشرة (CTA).
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">15 ثانية</span>
+                                    <span class="text-slate-700">
+                                        <strong>إعلان سريع (لـ TikTok/Snap):</strong> رسالة سريعة ومكثفة (مثل: "مجاني ومتوافق مع هيئة الزكاة").
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
+                             <h2 class="text-2xl font-bold text-slate-800 mb-4">
+                                <span class="text-3xl mr-2">🖼️</span> التصميمات الثابتة
+                            </h2>
+                             <ul class="list-disc list-inside space-y-3 text-slate-700">
+                                <li>
+                                    <strong>تصميم "التطبيق مجاني":</strong> رسالة واضحة لجذب أكبر عدد من المستخدمين للتجربة.
+                                </li>
+                                <li>
+                                    <strong>تصميمات "مزايا التطبيق":</strong> سلسلة تصميمات تركز كل واحدة على ميزة (سهولة الاستخدام، تقارير، ...).
+                                </li>
+                                <li class="font-semibold text-blue-700">
+                                    <strong>تصميم "التوافق":</strong> النقطة الأهم، إبراز التوافق الكامل مع الفاتورة الإلكترونية وهيئة الزكاة والدخل.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div role="tabpanel" id="execution" class="tab-panel hidden">
+                 <section>
+                    <p class="mb-6 text-lg text-slate-700">
+                        خطة التنفيذ مقسمة إلى مرحلتين رئيسيتين على مدار 30 يوماً. نبدأ بمرحلة "الاكتشاف" لجمع البيانات، ثم ننتقل إلى "التحسين" لزيادة الكفاءة وتخفيض التكاليف بناءً على النتائج.
+                    </p>
+                    <div class="flex flex-col md:flex-row items-stretch justify-center gap-4 md:gap-0">
+                        
+                        <div class="flex-1 bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
+                            <span class="block text-sm font-semibold text-blue-600 uppercase">المرحلة الأولى: الاكتشاف</span>
+                            <h2 class="text-xl font-bold text-slate-800 my-2">الأسبوع 1 و 2 (يوم 1 - 14)</h2>
+                            <p class="text-slate-600 mb-4">
+                                تشغيل جميع الفيديوهات والتصميمات عبر كل القنوات (TikTok, Snapchat, YouTube) بشكل متزامن.
+                            </p>
+                            <strong class="text-slate-800">الهدف:</strong>
+                            <ul class="list-disc list-inside space-y-1 mt-2 text-slate-700">
+                                <li>جمع أكبر عدد من Leads.</li>
+                                <li>تحديد أفضل إعلان (Creative) يحقق أعلى CTR.</li>
+                                <li>تحديد أفضل قناة تحقق أقل تكلفة للعميل (CPL).</li>
+                            </ul>
+                        </div>
+
+                        <div class="hidden md:flex flex-col items-center justify-center px-6">
+                            <div class="w-0.5 h-full bg-blue-300"></div>
+                            <span class="text-4xl text-blue-500 my-4 transform -rotate-90 md:rotate-0">➔</span>
+                            <div class="w-0.5 h-full bg-blue-300"></div>
+                        </div>
+                        <div class="flex md:hidden items-center justify-center my-4">
+                             <span class="text-4xl text-blue-500 transform rotate-90">➔</span>
+                        </div>
+
+                        <div class="flex-1 bg-white p-6 md:p-8 rounded-xl shadow-lg border-2 border-blue-400">
+                            <span class="block text-sm font-semibold text-blue-600 uppercase">المرحلة الثانية: التحسين</span>
+                            <h2 class="text-xl font-bold text-slate-800 my-2">الأسبوع 3 و 4 (يوم 15 - 30)</h2>
+                            <p class="text-slate-600 mb-4">
+                                بناءً على بيانات أول أسبوعين، يتم اتخاذ الإجراءات التالية:
+                            </p>
+                            <strong class="text-slate-800">الهدف:</strong>
+                            <ul class="list-disc list-inside space-y-1 mt-2 text-slate-700">
+                                <li>وقف الإعلانات ذات الأداء الضعيف (CPL مرتفع).</li>
+                                <li>زيادة ميزانية الإعلانات والقنوات الفائزة.</li>
+                                <li>تحقيق استقرار في تكلفة CPL عند الحد المستهدف.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                 </section>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('[role="tab"]');
+            const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+            let chartsInitialized = {
+                budget: false,
+                kpis: false
+            };
+
+            function switchTab(targetId) {
+                tabPanels.forEach(panel => {
+                    if (panel.id === targetId) {
+                        panel.classList.remove('hidden');
+                    } else {
+                        panel.classList.add('hidden');
+                    }
+                });
+
+                tabs.forEach(tab => {
+                    if (tab.getAttribute('data-target') === targetId) {
+                        tab.setAttribute('aria-selected', 'true');
+                        tab.classList.remove('inactive-tab', 'bg-white', 'text-blue-600', 'hover:bg-blue-50');
+                        tab.classList.add('active-tab', 'bg-blue-600', 'text-white');
+                    } else {
+                        tab.setAttribute('aria-selected', 'false');
+                        tab.classList.add('inactive-tab', 'bg-white', 'text-blue-600', 'hover:bg-blue-50');
+                        tab.classList.remove('active-tab', 'bg-blue-600', 'text-white');
+                    }
+                });
+
+                if (targetId === 'channels' && !chartsInitialized.budget) {
+                    renderBudgetChart();
+                    chartsInitialized.budget = true;
+                } else if (targetId === 'kpis' && !chartsInitialized.kpis) {
+                    renderKpiCharts();
+                    chartsInitialized.kpis = true;
+                }
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    switchTab(targetId);
+                });
+            });
+
+            function renderBudgetChart() {
+                const ctx = document.getElementById('budgetChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['يوتيوب', 'تيك توك', 'سناب شات'],
+                        datasets: [{
+                            data: [6000, 4500, 4500],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.8)', // Blue-500
+                                'rgba(16, 185, 129, 0.8)', // Emerald-500
+                                'rgba(234, 179, 8, 0.8)'   // Yellow-500
+                            ],
+                            borderColor: [
+                                'rgba(59, 130, 246, 1)',
+                                'rgba(16, 185, 129, 1)',
+                                'rgba(234, 179, 8, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '60%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        family: "'Noto Sans Arabic', sans-serif",
+                                        size: 14
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                rtl: true,
+                                textDirection: 'rtl',
+                                bodyFont: {
+                                    family: "'Noto Sans Arabic', sans-serif"
+                                },
+                                titleFont: {
+                                     family: "'Noto Sans Arabic', sans-serif"
+                                },
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += new Intl.NumberFormat('ar-SA', { style: 'currency', currency: 'SAR', minimumFractionDigits: 0 }).format(context.parsed);
+                                        }
+                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((context.parsed / total) * 100).toFixed(0);
+                                        label += ` (${percentage}%)`;
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            function renderKpiCharts() {
+                const cplCtx = document.getElementById('cplChart').getContext('2d');
+                new Chart(cplCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['الهدف (ريال)'],
+                        datasets: [
+                            {
+                                label: 'الحد الأدنى',
+                                data: [10],
+                                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'الحد الأقصى',
+                                data: [15],
+                                backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 20
+                            },
+                            y: {
+                                stacked: true
+                            }
+                        },
+                        plugins: {
+                            legend: { display: true, position: 'bottom' },
+                            tooltip: {
+                                rtl: true,
+                                textDirection: 'rtl'
+                            }
+                        }
+                    }
+                });
+
+                const ctrCtx = document.getElementById('ctrChart').getContext('2d');
+                new Chart(ctrCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['الهدف (%)'],
+                        datasets: [
+                            {
+                                label: 'الحد الأدنى',
+                                data: [0.8],
+                                backgroundColor: 'rgba(16, 185, 129, 0.5)',
+                                borderColor: 'rgba(16, 185, 129, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'الحد الأقصى',
+                                data: [1.5],
+                                backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                                borderColor: 'rgba(16, 185, 129, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 2
+                            },
+                             y: {
+                                stacked: true
+                            }
+                        },
+                         plugins: {
+                            legend: { display: true, position: 'bottom' },
+                            tooltip: {
+                                rtl: true,
+                                textDirection: 'rtl',
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed.x + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            switchTab('overview');
+        });
+    </script>
+</body>
+</html>
