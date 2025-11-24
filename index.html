@@ -14,11 +14,11 @@
     <!-- Application Structure Plan: A tabbed interface SPA. This structure is chosen over a linear report as it allows non-linear exploration of the media plan. Users (client/marketer) can instantly navigate to the section they care about (e.g., Budget, KPIs, Creatives) without scrolling. This dashboard approach makes complex plan data highly consumable and intuitive. JS manages the active tab state and content visibility, and initializes charts only when their tab is viewed. -->
     <!-- Visualization & Content Choices: 
         - Overview: HTML Stat Cards (Goal: Inform) - For at-a-glance budget, duration, and goals.
-        - Budget Allocation: Chart.js Doughnut Chart (Goal: Compare Proportions) - Visually represents the 40/30/30 split. (Library: Chart.js).
+        - Budget Allocation: Chart.js Doughnut Chart (Goal: Compare Proportions) - Visually represents the 40/40/20 split. (Library: Chart.js).
         - Channel Strategy: HTML Cards (Goal: Inform) - Details the 'why' for each channel choice.
         - KPI Targets: Chart.js Horizontal Bar Charts (Goal: Show Range) - Effectively visualizes the min/max target ranges for CPL and CTR. (Library: Chart.js).
-        - Creative Assets: HTML Lists (Goal: Organize) - Simple, clear categorization of video/static assets.
-        - Execution Plan: HTML Flexbox Timeline (Goal: Show Process) - Visually represents the two-phase plan (Test, Optimize) clearly.
+        - Creative Assets: HTML Lists (Goal: Organize) - Simple, clear categorization of video/static assets, updated count to 5.
+        - Execution Plan: HTML Flexbox Timeline (Goal: Show Process) - Visually represents the two-phase plan (Test, Optimize) clearly, updated channel to Google.
         - All justifications prioritize clarity and interactivity.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
@@ -101,7 +101,7 @@
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
                             <h3 class="text-sm font-medium text-slate-500 uppercase">الأهداف الرئيسية</h3>
-                            <p class="text-xl font-bold text-slate-800 mt-2">الوعي بالعلامة التجارية<br>+ توليد عملاء محتملين</p>
+                            <p class="text-xl font-bold text-slate-800 mt-2">الوعي بالعلامة التجارية<br>+ توليد Leads (تحميل التطبيق والتسجيل)</p>
                         </div>
                     </div>
                 </section>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                     <div class="mt-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
-                        <p class="text-sm text-blue-800"><strong class="font-semibold">التركيبة السكانية:</strong> ذكور وإناث، الفئة العمرية 25-65 عاماً، داخل المملكة العربية السعودية، مع التركيز على متخذي القرار التجاري والمحاسبين.</p>
+                        <p class="text-sm text-blue-800"><strong class="font-semibold">التركيبة السكانية:</strong> ذكور وإناث، الفئة العمرية 25-65 عاماً، داخل المملكة العربية السعودية، مع التركيز على متخذي القرار التجاري والمحاسبين المحترفين.</p>
                     </div>
                 </section>
             </div>
@@ -135,7 +135,7 @@
             <div role="tabpanel" id="channels" class="tab-panel hidden space-y-8">
                 <section>
                     <p class="mb-6 text-lg text-slate-700">
-                        هنا يتم عرض كيفية توزيع الميزانية الإجمالية البالغة 15,000 ريال على القنوات الإعلانية الرئيسية. الرسم البياني يوضح الحصص، والبطاقات تشرح السبب الاستراتيجي لاختيار كل قناة.
+                        هنا يتم عرض كيفية توزيع الميزانية الإجمالية البالغة 15,000 ريال على القنوات الإعلانية الرئيسية. الرسم البياني يوضح الحصص الجديدة (40%، 40%، 20%)، والبطاقات تشرح السبب الاستراتيجي لاختيار كل قناة.
                     </p>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                         <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
@@ -147,19 +147,19 @@
                         
                         <div class="space-y-4">
                             <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
-                                <h3 class="text-xl font-bold text-blue-600">يوتيوب (40%)</h3>
+                                <h3 class="text-xl font-bold text-blue-600">Google Preferences Max (40%)</h3>
                                 <p class="font-semibold text-slate-700">6,000 ريال (200 ريال/يوم)</p>
-                                <p class="mt-2 text-slate-600">الاختيار الأنسب للوصول الواسع (Awareness) وأيضاً (Leads) ادق وشرح مميزات التطبيق عبر إعلانات الفيديو للجمهور المهتم ببرامج الأعمال.</p>
+                                <p class="mt-2 text-slate-600">حملة الأداء الأفضل (Performance Max) لتغطية واسعة واستهداف دقيق للجمهور المهني عبر شبكات Google المتعددة (البحث، العرض، YouTube، البريد الإلكتروني).</p>
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
-                                <h3 class="text-xl font-bold text-emerald-600">تيك توك (30%)</h3>
-                                <p class="font-semibold text-slate-700">4,500 ريال (150 ريال/يوم)</p>
+                                <h3 class="text-xl font-bold text-emerald-600">تيك توك (40%)</h3>
+                                <p class="font-semibold text-slate-700">6,000 ريال (200 ريال/يوم)</p>
                                 <p class="mt-2 text-slate-600">يستخدم لتوليد العملاء المحتملين (Leads) بشكل سريع عبر فيديوهات قصيرة (15-30 ثانية) تستهدف الجمهور المهني الشاب (25-45).</p>
                             </div>
                             <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200">
-                                <h3 class="text-xl font-bold text-yellow-500">سناب شات (30%)</h3>
-                                <p class="font-semibold text-slate-700">4,500 ريال (150 ريال/يوم)</p>
-                                <p class="mt-2 text-slate-600">قناة فعالة للوصول المحلي المكثف في السعودية. تستخدم لزيادة التفاعل وتوجيه المستخدمين لصفحة التسجيل بتكلفة فعالة.</p>
+                                <h3 class="text-xl font-bold text-yellow-500">سناب شات (20%)</h3>
+                                <p class="font-semibold text-slate-700">3,000 ريال (100 ريال/يوم)</p>
+                                <p class="mt-2 text-slate-600">قناة فعالة للوصول المحلي المكثف في السعودية. تستخدم لزيادة التفاعل وتوجيه المستخدمين لصفحة التسجيل بتكلفة فعالة، مع تخصيص ميزانية أقل للتركيز على القنوات ذات الأداء الأقوى (Google & TikTok).</p>
                             </div>
                         </div>
                     </div>
@@ -175,12 +175,12 @@
                         <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200 text-center">
                             <h3 class="text-lg font-semibold text-slate-700">مرات الظهور (Impressions)</h3>
                             <p class="text-3xl font-bold text-blue-600 mt-2">2.5 - 3.5 مليون</p>
-                            <p class="text-sm text-slate-500 mt-1">لقياس إجمالي حجم التعرض للعلامة التجارية.</p>
+                            <p class="text-sm text-slate-500 mt-1">تقييم إجمالي حجم التعرض للعلامة التجارية.</p>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200 text-center">
                             <h3 class="text-lg font-semibold text-slate-700">التكلفة لكل ألف ظهور (CPM)</h3>
                             <p class="text-3xl font-bold text-blue-600 mt-2">4 - 6 ريال</p>
-                            <p class="text-sm text-slate-500 mt-1">لقياس كفاءة سعر الوصول عبر القنوات.</p>
+                            <p class="text-sm text-slate-500 mt-1">قياس كفاءة سعر الوصول عبر القنوات.</p>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg border border-stone-200 text-center">
                             <h3 class="text-lg font-semibold text-slate-700">معدل مشاهدة الفيديو (VTR)</h3>
@@ -194,7 +194,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                             <h3 class="text-lg font-semibold text-slate-700 mb-3">الهدف: تكلفة العميل المحتمل (CPL)</h3>
-                            <p class="text-sm text-slate-500 mb-3">المؤشر الأهم لقياس ROI. نسعى لتكلفة تتراوح بين 10 و 15 ريال.</p>
+                            <p class="text-sm text-slate-500 mb-3">المؤشر الأهم: يحدد تكلفة الحصول على كل تسجيل تجريبي/تواصل أولي، بهدف الوصول بين 10 و 15 ريال.</p>
                             <div class="chart-container-bar">
                                 <canvas id="cplChart"></canvas>
                             </div>
@@ -218,45 +218,54 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
                             <h2 class="text-2xl font-bold text-slate-800 mb-4">
-                                <span class="text-3xl mr-2">🎥</span> الفيديوهات (3 أنواع)
+                                <span class="text-3xl mr-2">🎥</span> الفيديوهات (5 أنواع)
                             </h2>
                             <ul class="list-none space-y-4">
                                 <li class="flex items-start">
                                     <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">45 ثانية</span>
                                     <span class="text-slate-700">
-                                        <strong>الإعلان الرئيسي (لـ YouTube):</strong> شرح تفصيلي لمزايا التطبيق وقيمته لحل المشاكل المحاسبية.
+                                        <strong>الإعلان الرئيسي:</strong> شرح تفصيلي لمزايا التطبيق وقيمته لحل المشاكل المحاسبية (مناسب لـ Google Video).
                                     </span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">30 ثانية</span>
                                     <span class="text-slate-700">
-                                        <strong>إعلان مختصر (لـ TikTok/Snap):</strong> تركيز على ميزة واحدة قوية (مثل الفوترة) مع دعوة مباشرة (CTA).
+                                        <strong>إعلان مختصر:</strong> تركيز على ميزة واحدة قوية (مثل الفوترة) مع دعوة مباشرة (CTA) (لـ TikTok/Snap).
                                     </span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">15 ثانية</span>
                                     <span class="text-slate-700">
-                                        <strong>إعلان سريع (لـ TikTok/Snap):</strong> رسالة سريعة ومكثفة (مثل: "مجاني ومتوافق مع هيئة الزكاة").
+                                        <strong>إعلان سريع:</strong> رسالة سريعة ومكثفة (مثل: "مجاني ومتوافق مع هيئة الزكاة") (لـ TikTok/Snap/Google App Campaigns).
+                                    </span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-100 text-blue-800 text-sm font-bold px-3 py-1 rounded-full mr-3 mt-1">2 فيديو إضافي</span>
+                                    <span class="text-slate-700">
+                                        يتم تخصيصهما لمحتوى تجريبي إضافي (A/B testing) يركز على قصص نجاح أو مقارنة سريعة مع الطرق التقليدية.
                                     </span>
                                 </li>
                             </ul>
                         </div>
                         <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-stone-200">
                              <h2 class="text-2xl font-bold text-slate-800 mb-4">
-                                <span class="text-3xl mr-2">🖼️</span> التصميمات الثابتة
+                                <span class="text-3xl mr-2">🖼️</span> التصميمات الثابتة (لـ Google Display & Snap)
                             </h2>
                              <ul class="list-disc list-inside space-y-3 text-slate-700">
                                 <li>
                                     <strong>تصميم "التطبيق مجاني":</strong> رسالة واضحة لجذب أكبر عدد من المستخدمين للتجربة.
                                 </li>
                                 <li>
-                                    <strong>تصميمات "مزايا التطبيق":</strong> سلسلة تصميمات تركز كل واحدة على ميزة (سهولة الاستخدام، تقارير، ...).
+                                    <strong>تصميمات "التوافق مع الفاتورة الإلكترونية والزكاة":</strong> النقطة الأهم، إبراز الامتثال القانوني.
                                 </li>
                                 <li class="font-semibold text-blue-700">
-                                    <strong>تصميم "التوافق":</strong> النقطة الأهم، إبراز التوافق الكامل مع الفاتورة الإلكترونية وهيئة الزكاة والدخل.
+                                    <strong>تصميمات المزايا الرئيسية:</strong> تصميمات منفصلة لكل ميزة رئيسية (مثلاً: التقارير، سهولة الاستخدام، الأمان).
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                        <p class="text-sm text-blue-800"><strong class="font-semibold">توجيه المحتوى:</strong> يجب أن يركز المحتوى على حلول المشاكل: "وفر الوقت"، "تجنب الأخطاء المحاسبية"، و"الامتثال لمتطلبات الزكاة والدخل".</p>
                     </div>
                 </section>
             </div>
@@ -272,11 +281,11 @@
                             <span class="block text-sm font-semibold text-blue-600 uppercase">المرحلة الأولى: الاكتشاف</span>
                             <h2 class="text-xl font-bold text-slate-800 my-2">الأسبوع 1 و 2 (يوم 1 - 14)</h2>
                             <p class="text-slate-600 mb-4">
-                                تشغيل جميع الفيديوهات والتصميمات عبر كل القنوات (TikTok, Snapchat, YouTube) بشكل متزامن.
+                                تشغيل جميع الفيديوهات والتصميمات عبر كل القنوات (<span class="font-bold text-emerald-600">TikTok</span> و<span class="font-bold text-yellow-500">Snapchat</span> و<span class="font-bold text-blue-600">Google</span>) معاً.
                             </p>
                             <strong class="text-slate-800">الهدف:</strong>
                             <ul class="list-disc list-inside space-y-1 mt-2 text-slate-700">
-                                <li>جمع أكبر عدد من Leads.</li>
+                                <li>جمع أكبر قدر من Leads بأي تكلفة أولية.</li>
                                 <li>تحديد أفضل إعلان (Creative) يحقق أعلى CTR.</li>
                                 <li>تحديد أفضل قناة تحقق أقل تكلفة للعميل (CPL).</li>
                             </ul>
@@ -299,9 +308,9 @@
                             </p>
                             <strong class="text-slate-800">الهدف:</strong>
                             <ul class="list-disc list-inside space-y-1 mt-2 text-slate-700">
-                                <li>وقف الإعلانات ذات الأداء الضعيف (CPL مرتفع).</li>
+                                <li>وقف الإعلانات ذات الأداء الضعيف (CPL مرتفع أو CTR منخفض).</li>
                                 <li>زيادة ميزانية الإعلانات والقنوات الفائزة.</li>
-                                <li>تحقيق استقرار في تكلفة CPL عند الحد المستهدف.</li>
+                                <li>الاستمرار في النتائج الأفضل بأقل التكاليف وتحقيق استقرار في CPL.</li>
                             </ul>
                         </div>
 
@@ -320,6 +329,23 @@
                 budget: false,
                 kpis: false
             };
+            
+            // Data for the budget chart updated to 40% Google, 40% TikTok, 20% Snapchat
+            const budgetData = {
+                labels: ['Google PMax', 'تيك توك', 'سناب شات'],
+                data: [6000, 6000, 3000],
+                backgroundColors: [
+                    'rgba(59, 130, 246, 0.8)', // Blue-500 (Google)
+                    'rgba(16, 185, 129, 0.8)', // Emerald-500 (TikTok)
+                    'rgba(234, 179, 8, 0.8)'   // Yellow-500 (Snapchat)
+                ],
+                borderColors: [
+                    'rgba(59, 130, 246, 1)',
+                    'rgba(16, 185, 129, 1)',
+                    'rgba(234, 179, 8, 1)'
+                ]
+            };
+
 
             function switchTab(targetId) {
                 tabPanels.forEach(panel => {
@@ -363,19 +389,11 @@
                 new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['يوتيوب', 'تيك توك', 'سناب شات'],
+                        labels: budgetData.labels,
                         datasets: [{
-                            data: [6000, 4500, 4500],
-                            backgroundColor: [
-                                'rgba(59, 130, 246, 0.8)', // Blue-500
-                                'rgba(16, 185, 129, 0.8)', // Emerald-500
-                                'rgba(234, 179, 8, 0.8)'   // Yellow-500
-                            ],
-                            borderColor: [
-                                'rgba(59, 130, 246, 1)',
-                                'rgba(16, 185, 129, 1)',
-                                'rgba(234, 179, 8, 1)'
-                            ],
+                            data: budgetData.data,
+                            backgroundColor: budgetData.backgroundColors,
+                            borderColor: budgetData.borderColors,
                             borderWidth: 1
                         }]
                     },
